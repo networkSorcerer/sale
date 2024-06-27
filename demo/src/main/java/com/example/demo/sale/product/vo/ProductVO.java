@@ -1,4 +1,4 @@
-package com.sale.product.vo;
+package com.example.demo.sale.product.vo;
 import java.sql.Date;
 
 // product , sale, sale customer, purchase, purchase customer 이렇게 5가지 화면 단을 만들자 
@@ -17,5 +17,6 @@ public class ProductVO  {
 	private Date product_in = null;
 	private int product_kg =0;
 	private String product_location ="";
+	private int product_count =0;
 	
 }

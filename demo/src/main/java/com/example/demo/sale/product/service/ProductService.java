@@ -1,8 +1,8 @@
-package com.sale.product.service;
+package com.example.demo.sale.product.service;
 
 import java.util.List;
 
-import com.sale.product.vo.ProductVO;
+import com.example.demo.sale.product.vo.ProductVO;
 
 public interface ProductService {
 	public List<ProductVO> productList(ProductVO pvo);

@@ -1,10 +1,10 @@
-package com.sale.product.dao;
+package com.example.demo.sale.product.dao;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.sale.product.vo.ProductVO;
+import com.example.demo.sale.product.vo.ProductVO;
 
 @Mapper
 public interface ProductDAO {
