@@ -28,7 +28,7 @@
 					<tbody id="list">
 						<c:choose>
 							<c:when test="${not empty productList}">
-								<c:forEach var="product" items="${productList}">
+								<c:forEach var="product" items="${productList}" varStatus ="status">
 									<tr class="text-center" data-num="${product.productId}">
 										<td class="id">${product.productId}</td>
 										<td class="goDetail">${product.productName}</td>
