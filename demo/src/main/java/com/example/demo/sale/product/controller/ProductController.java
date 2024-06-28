@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,14 +42,13 @@ public class ProductController {
 		
 	}
 	
-	@GetMapping("/adoptionDetail")
-	public String productDetail(@ModelAttribute ProductVO pvo, Model model) {
-		ProductVO detail= productservice.productDetail(pvo);
-		model.addAttribute("detail", detail);
-		
-		return "sale/product/productList";
-	}
-	
+	   @GetMapping("/productDetail")
+	   public String productDetail(@ModelAttribute ProductVO productvo, Model model) {
+		   ProductVO detail = productservice.productDetail(productvo);
+		   model.addAttribute("detail", detail);
+		   
+		   return "sale/product/UpdateProduct";
+	   }
 
 //	@GetMapping(value = "/productList", produces = "application/json")
 //	@ResponseBody

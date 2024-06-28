@@ -18,6 +18,11 @@
 			<div class="col-12">
 				<h1 class="mt-4 mb-4">재고 관리</h1>
 			</div>
+			<div> 
+				<form id=detailForm>
+				<input type="hidden" id="productId" name="productId"/>
+			</form>
+			</div>
 			<div class="col-12">
 				<!-- Trigger Modal Button -->
 				<button type="button" class="btn btn-primary mb-4" id="NewProduct">
@@ -63,106 +68,20 @@
 <script src="/resources/include/js/common.js"></script>
 
 <script>
-$(document).ready(function() {
-	// Load product details into the modal
-	$('#productDetailModal').on('show.bs.modal', function(event) {
-		var button = $(event.relatedTarget); // Button that triggered the modal
-		var productId = button.data('id');
-		var productName = button.data('name');
-		var productCount = button.data('count');
-
-		var modal = $(this);
-		modal.find('#detailProductId').val(productId);
-		modal.find('#detailProductName').val(productName);
-		modal.find('#detailProductCount').val(productCount);
+$(function(){
+	  $(".goDetail").on("click", function(){
+		  let productId = $(this).parent("tr").attr("data-num");
+		  $("#productId").val(productId);  // 수정된 부분 #붙이는 거 까먹지 마라 
+		  $("#detailForm").attr({
+			  "method":"get",
+			  "action":"/product/productDetail"//컨트롤러단 주소다
+		  });
+		  $("#detailForm").submit();
+	  });
 	});
 
-	// Handle save changes button click
-	$('#saveChanges').click(function() {
-		// Get updated values
-		var productId = $('#detailProductId').val();
-		var productName = $('#detailProductName').val();
-		var productCount = $('#detailProductCount').val();
-		
-		// Implement AJAX call to save changes to the server
-		// Example:
-		
-		$.ajax({
-			url: '/updateProduct',
-			type: 'POST',
-			data: {
-				productId: productId,
-				productName: productName,
-				productCount: productCount
-			},
-			success: function(response) {
-				// Handle success
-				alert('Product updated successfully!');
-				location.reload(); // Reload the page to reflect changes
-			},
-			error: function(error) {
-				// Handle error
-				alert('Failed to update product.');
-			}
-		});
-		
-	});
 
-	// Handle delete button click
-	$('#deleteProduct').click(function() {
-		var productId = $('#detailProductId').val();
-		
-		// Implement AJAX call to delete product from the server
-		// Example:
-		
-		$.ajax({
-			url: '/deleteProduct',
-			type: 'POST',
-			data: {
-				productId: productId
-			},
-			success: function(response) {
-				// Handle success
-				alert('Product deleted successfully!');
-				location.reload(); // Reload the page to reflect changes
-			},
-			error: function(error) {
-				// Handle error
-				alert('Failed to delete product.');
-			}
-		});
-		
-	});
-
-	// Handle save new product button click
-	$('#saveProduct').click(function() {
-		// Get new product values
-		var productId = $('#productId').val();
-		var productName = $('#productName').val();
-		var productCount = $('#productCount').val();
-
-		// Implement AJAX call to save new product to the server
-		// Example:
-		$.ajax({
-			url: '/addProduct', // Update with your server endpoint
-			type: 'POST',
-			data: {
-				productId: productId,
-				productName: productName,
-				productCount: productCount
-			},
-			success: function(response) {
-				// Handle success
-				alert('Product added successfully!');
-				location.reload(); // Reload the page to reflect changes
-			},
-			error: function(error) {
-				// Handle error
-				alert('Failed to add product.');
-			}
-		});
-	});
-});
 </script>
+
 </body>
 </html>

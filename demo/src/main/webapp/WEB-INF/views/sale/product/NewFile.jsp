@@ -129,18 +129,31 @@
 </body>
 
 <script> 
-	$(document).ready(function() {
-		$('#productDetailModal').on('show.bs.modal', function(event){
-			var button = $(event.relatedTarget);
-			var productId = button.data('id');
-			var productName = button.data('name');
-			var productCount = button.data('count');
-			
-			var modal =$(this);
-			modal.find('#detailProductId').val(productId);
-			
-		})
-	})
-	
+$(function() {
+    $(".goDetail").on("click", function() {
+        let productId = $(this).parents("tr").attr("data-num");
+
+        // Ajax 요청
+        $.ajax({
+            url: "/product/UpdateProduct",  // 데이터를 가져올 URL
+            type: "GET",  // GET 요청
+            data: {
+            	productId: productId  // 서버에 전달할 데이터
+            },
+            dataType: "html",  // 반환되는 데이터 타입 (여기서는 HTML)
+            success: function(response) {
+                // Ajax 요청 성공 시 실행될 함수
+                // 모달 창 내부에 서버에서 받아온 HTML 데이터를 채워 넣기
+                $("#productDetailModal .modal-body").html(response);
+                $("#productDetailModal").modal("show");  // 모달 창 표시
+            },
+            error: function(error) {
+                // Ajax 요청 실패 시 실행될 함수
+                alert("Failed to fetch adoption details.");
+            }
+        });
+    });
+});
+
 </script>
 </html>
