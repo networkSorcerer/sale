@@ -23,4 +23,18 @@ public class ProductServiceImpl implements ProductService{
 		return list;
 	}
 
+	@Override
+	public ProductVO productDetail(ProductVO pvo) {
+		ProductVO detail = pDAO.productDetail(pvo);
+		
+		return detail;
+	}
+
+	@Override
+	public List<ProductVO> type(ProductVO pvo) {
+		List <ProductVO> typeList = null;
+		typeList = pDAO.productList(pvo);
+		return typeList;
+	}
+
 }

@@ -16,6 +16,23 @@
         SELECT 
             product_id,
             product_name,
+            product_count
+        FROM 
+            product
+    </select>
+    
+    <select id="type" parameterType="product" resultMap="productMap">
+    	SELECT
+    		product_type_id,
+    		product_type_name
+    	FROM
+    		product_type
+    </select>
+    
+    <select id="productDetail" parameterType="product" resultMap="productMap">
+    	 SELECT 
+            product_id,
+            product_name,
             product_type_id,
             product_type_name,
             product_in,
@@ -24,5 +41,44 @@
             product_count
         FROM 
             product
+        WHERE product_id = #{productId}
     </select>
+    
+    <update id="productUpdate" parameterType="product">
+    	Update product
+    	SET 
+    	 product_name = #{productName},
+         product_in = #{productIn},
+         product_kg = #{productKg},
+         product_location = #{productLocation},
+         product_count = #{productCount}
+        WHERE product_id = #{productId }
+    </update>
+    
+    <delete id="productDelete" parameterType="product">
+    	DELETE FROM product WHERE product_id = #{productId}
+    </delete>
+    
+    <insert id ="productInsert" parameterType="product">
+    	<selectKey keyProperty="productId" resultType="int" order="BEFORE">
+    		select product_seq.nextval from dual
+    	</selectKey>
+    	INSERT INTO product ( 
+    		product_id,
+            product_name,
+            product_type_id,
+            product_type_name,
+            product_in,
+            product_kg,
+            product_location,
+            product_count)
+            VALUES (
+            #{productName},
+            #{productIn},
+            #{productKg},
+            #{productLocation},
+            #{productCount},
+            #{productId},
+            )
+    </insert>
 </mapper>

@@ -9,4 +9,7 @@ import com.example.demo.sale.product.vo.ProductVO;
 @Mapper
 public interface ProductDAO {
 	public List<ProductVO> productList(ProductVO pvo);
+
+	public ProductVO productDetail(ProductVO pvo);
+	public List<ProductVO> type(ProductVO pvo);
 }

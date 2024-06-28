@@ -32,10 +32,22 @@ public class ProductController {
 		model.addAttribute("productList", productList);
 		System.out.println("Product List: " + productList);
 		
+		List<ProductVO>type = productservice.type(pvo);
+		model.addAttribute("type", type);
+		
 		return "sale/product/productView";
 		
 	}
 	
+	@GetMapping("/adoptionDetail")
+	public String productDetail(@ModelAttribute ProductVO pvo, Model model) {
+		ProductVO detail= productservice.productDetail(pvo);
+		model.addAttribute("detail", detail);
+		
+		return "sale/product/productList";
+	}
+	
+
 //	@GetMapping(value = "/productList", produces = "application/json")
 //	@ResponseBody
 //	public Map<String ,Object> productList(@ModelAttribute ProductVO pvo, Model model) {
