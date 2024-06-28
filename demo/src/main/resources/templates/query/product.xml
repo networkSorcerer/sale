@@ -44,16 +44,20 @@
         WHERE product_id = #{productId}
     </select>
     
-    <update id="productUpdate" parameterType="product">
-    	Update product
-    	SET 
-    	 product_name = #{productName},
-         product_in = #{productIn},
-         product_kg = #{productKg},
-         product_location = #{productLocation},
-         product_count = #{productCount}
-        WHERE product_id = #{productId }
-    </update>
+    <update id="updateProduct" parameterType="product">
+    UPDATE product
+    SET 
+    	product_id = #{productId},
+        product_name = #{productName},
+        product_count = #{productCount},
+        product_type_name = #{productTypeName},
+        product_in = TO_DATE(?, 'YYYY-MM-DD'),
+        product_kg = #{productKg},
+        product_location = #{productLocation},
+        product_type_id =#{productTypeId}
+    WHERE product_id = #{productId}
+</update>
+
     
     <delete id="productDelete" parameterType="product">
     	DELETE FROM product WHERE product_id = #{productId}

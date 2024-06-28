@@ -19,9 +19,9 @@
 				<h1 class="mt-4 mb-4">재고 관리</h1>
 			</div>
 			<div> 
-				<form id=detailForm>
-				<input type="hidden" id="productId" name="productId"/>
-			</form>
+				<form id="detailForm">
+					<input type="hidden" id="productId" name="productId"/>
+				</form>
 			</div>
 			<div class="col-12">
 				<!-- Trigger Modal Button -->
@@ -43,9 +43,13 @@
 								<c:forEach var="product" items="${productList}" varStatus="status">
 									<tr data-num="${product.productId}">
 										<td>${product.productId}</td>
-										<td class="goDetail">${product.productName}</td>
+										<td>${product.productName}</td>
 										<td>${product.productCount}</td>
-										<td><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#productDetailModal" data-id="${product.productId}" >상세 정보</button></td>
+										<td><button class="btn btn-info btn-sm goDetail" 
+										data-toggle="modal" 
+										data-target="#productDetailModal" 
+										data-id="${product.productId}" 
+										>상세 정보</button></td>
 									</tr>
 								</c:forEach>
 							</c:when>
@@ -68,19 +72,20 @@
 <script src="/resources/include/js/common.js"></script>
 
 <script>
-$(function(){
-	  $(".goDetail").on("click", function(){
-		  let productId = $(this).parent("tr").attr("data-num");
-		  $("#productId").val(productId);  // 수정된 부분 #붙이는 거 까먹지 마라 
-		  $("#detailForm").attr({
-			  "method":"get",
-			  "action":"/product/productDetail"//컨트롤러단 주소다
-		  });
-		  $("#detailForm").submit();
-	  });
-	});
-
-
+$(document).ready(function(){
+    $(document).on("click", ".goDetail", function(){
+        let productId = $(this).closest("tr").attr("data-num");
+        $("#productId").val(productId);  
+        $("#detailForm").attr({
+            "method":"get",
+            "action":"/product/productDetail" // 컨트롤러단 주소
+        });
+        $("#detailForm").submit();
+    });
+    $(document).on("click", "#NewProduct", function(){
+    	location.href="/product/NewProduct"; // 컨트롤러단 주소 
+    });
+});
 </script>
 
 </body>

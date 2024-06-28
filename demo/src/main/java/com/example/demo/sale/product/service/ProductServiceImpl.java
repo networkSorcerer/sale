@@ -37,4 +37,11 @@ public class ProductServiceImpl implements ProductService{
 		return typeList;
 	}
 
+	@Override
+	public int updateProduct(ProductVO pvo){
+		int result =0;
+		result = pDAO.updateProduct(pvo);
+		return result;
+	}
+
 }

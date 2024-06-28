@@ -3,12 +3,14 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
-<%@ page trimDirectiveWhitespaces="true" %>  
+<%@ page trimDirectiveWhitespaces="true" %>     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 상세 정보</title>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<div class="container mt-5">
@@ -25,6 +27,10 @@
 			<div class="form-group">
 				<label for="detailProductCount">상품 수량</label>
 				<input type="text" class="form-control" id="detailProductCount" name="productCount" value="${detail.productCount}">
+			</div>
+			<div class="form-group">
+				<label for="detailProductTypeName">상품 유형 ID</label>
+				<input type="text" class="form-control" id="detailProductTypeId" name="detailProductTypeId" value="${detail.productTypeId}">
 			</div>
 			<div class="form-group">
 				<label for="detailProductTypeName">상품 유형</label>
@@ -48,8 +54,9 @@
 			</div>
 		</form>
 	</div>
-</body>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="/resources/include/js/common.js"></script>
@@ -61,11 +68,12 @@ $(document).ready(function() {
         var productId = $('#detailProductId').val();
         var productName = $('#detailProductName').val();
         var productCount = $('#detailProductCount').val();
-        var productTypeName =$('#detailProductTypeName').val();
-        var productIn =$('#detailProductIn').val();
-        var productKg =$('#detailProductKg').val();
-        var productLocation =$('#detailProductLocation').val();
-      
+        var productTypeName = $('#detailProductTypeName').val();
+        var productIn = $('#detailProductIn').val();
+        var productKg = $('#detailProductKg').val();
+        var productLocation = $('#detailProductLocation').val();
+        var productTypeId = $('#detailProductTypeId').val(); // 추가된 productTypeId
+        
         // Implement AJAX call to save changes to the server
         $.ajax({
             url: '/product/updateProduct',
@@ -74,10 +82,11 @@ $(document).ready(function() {
                 productId: productId,
                 productName: productName,
                 productCount: productCount,
-                productTypeName :productTypeName,
+                productTypeName: productTypeName,
                 productIn: productIn,
                 productKg: productKg,
-                productLocation : productLocation
+                productLocation: productLocation,
+                productTypeId: productTypeId // 추가된 productTypeId
             },
             success: function(response) {
                 // Handle success
@@ -97,7 +106,7 @@ $(document).ready(function() {
         
         // Implement AJAX call to delete product from the server
         $.ajax({
-            url: '/deleteProduct',
+            url: '/product/deleteProduct',
             type: 'POST',
             data: {
                 productId: productId
@@ -114,5 +123,7 @@ $(document).ready(function() {
         });
     });
 });
+
 </script>
+</body>
 </html>

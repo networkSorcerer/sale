@@ -47,9 +47,26 @@ public class ProductController {
 		   ProductVO detail = productservice.productDetail(productvo);
 		   model.addAttribute("detail", detail);
 		   
-		   return "sale/product/UpdateProduct";
+		   return "sale/product/DetailProduct";
 	   }
-
+	   
+	   
+	   @GetMapping(value="/NewProduct")
+	   public String NewProduct() {
+		   return "sale/product/NewProduct";
+	   }
+	   
+	   @PostMapping("/updateProduct")
+	   public String updateProduct(@ModelAttribute ProductVO pvo) throws Exception {
+		   int result =0;
+		   String url = "";
+		   
+		   result = productservice.updateProduct(pvo);
+		   if(result ==1) {
+			   url="/product/productDetail?productId="+pvo.getProductId();
+		   }
+		   return "redirect:" +url;
+	   }
 //	@GetMapping(value = "/productList", produces = "application/json")
 //	@ResponseBody
 //	public Map<String ,Object> productList(@ModelAttribute ProductVO pvo, Model model) {
