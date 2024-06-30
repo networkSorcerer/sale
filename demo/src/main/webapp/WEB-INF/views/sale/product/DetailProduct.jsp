@@ -49,6 +49,7 @@
 				<input type="text" class="form-control" id="detailProductLocation" name="productLocation" value="${detail.productLocation}">
 			</div>
 			<div class="form-group">
+				<button type="button" class="btn btn-success" id="productList" href="/product/productList">목록</button>
 				<button type="button" class="btn btn-primary" id="saveChanges">수정</button>
 				<button type="button" class="btn btn-danger" id="deleteProduct">삭제</button>
 			</div>
@@ -62,7 +63,16 @@
 <script src="/resources/include/js/common.js"></script>
 <script>
 $(document).ready(function() {
-    // Handle save changes button click
+    // Get the CSRF token from a meta tag or another method
+    var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+    // Set up the AJAX request to include the CSRF token
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        }
+    });
+
     $('#saveChanges').click(function() {
         // Get updated values
         var productId = $('#detailProductId').val();
@@ -70,10 +80,11 @@ $(document).ready(function() {
         var productCount = $('#detailProductCount').val();
         var productTypeName = $('#detailProductTypeName').val();
         var productIn = $('#detailProductIn').val();
+        var formattedProductIn = new Date(productIn).toISOString().split('T')[0];
         var productKg = $('#detailProductKg').val();
         var productLocation = $('#detailProductLocation').val();
         var productTypeId = $('#detailProductTypeId').val(); // 추가된 productTypeId
-        
+
         // Implement AJAX call to save changes to the server
         $.ajax({
             url: '/product/updateProduct',
@@ -83,7 +94,7 @@ $(document).ready(function() {
                 productName: productName,
                 productCount: productCount,
                 productTypeName: productTypeName,
-                productIn: productIn,
+                productIn: formattedProductIn,
                 productKg: productKg,
                 productLocation: productLocation,
                 productTypeId: productTypeId // 추가된 productTypeId
@@ -91,7 +102,7 @@ $(document).ready(function() {
             success: function(response) {
                 // Handle success
                 alert('Product updated successfully!');
-                location.reload(); // Reload the page to reflect changes
+                window.location.href='/product/productList';
             },
             error: function(error) {
                 // Handle error
@@ -100,13 +111,12 @@ $(document).ready(function() {
         });
     });
 
-    // Handle delete button click
     $('#deleteProduct').click(function() {
         var productId = $('#detailProductId').val();
-        
+
         // Implement AJAX call to delete product from the server
         $.ajax({
-            url: '/product/deleteProduct',
+            url: '/product/productDelete',
             type: 'POST',
             data: {
                 productId: productId
@@ -114,7 +124,7 @@ $(document).ready(function() {
             success: function(response) {
                 // Handle success
                 alert('Product deleted successfully!');
-                location.reload(); // Reload the page to reflect changes
+                window.location.href='/product/productList';
             },
             error: function(error) {
                 // Handle error
@@ -122,7 +132,12 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('#productList').click(function(){
+        window.location.href='/product/productList';
+    });
 });
+
 
 </script>
 </body>

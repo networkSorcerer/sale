@@ -83,7 +83,7 @@ $(document).ready(function(){
         $("#detailForm").submit();
     });
     $(document).on("click", "#NewProduct", function(){
-    	location.href="/product/NewProduct"; // 컨트롤러단 주소 
+    	location.href="/product/productInsert"; // 컨트롤러단 주소 
     });
 });
 </script>

@@ -51,10 +51,15 @@ public class ProductController {
 	   }
 	   
 	   
-	   @GetMapping(value="/NewProduct")
-	   public String NewProduct() {
-		   return "sale/product/NewProduct";
+	   
+	   @GetMapping("/productInsert")
+	   public String productInsert(@ModelAttribute ProductVO pvo, Model model) {
+		  List<ProductVO> type = productservice.type(pvo);
+		  model.addAttribute("type",type);
+		  
+		  return "sale/product/NewProduct";
 	   }
+	   
 	   
 	   @PostMapping("/updateProduct")
 	   public String updateProduct(@ModelAttribute ProductVO pvo) throws Exception {
@@ -64,8 +69,15 @@ public class ProductController {
 		   result = productservice.updateProduct(pvo);
 		   if(result ==1) {
 			   url="/product/productDetail?productId="+pvo.getProductId();
-		   }
+		   } else 
+			   url="/product/productDetail?productId="+pvo.getProductId();
 		   return "redirect:" +url;
+	   }
+	   
+	   @PostMapping(value="/productDelete")
+	   public String productDelete(@ModelAttribute ProductVO pvo) throws Exception {
+		   productservice.productDelete(pvo);
+		   return "redirect:/product/productList";
 	   }
 //	@GetMapping(value = "/productList", produces = "application/json")
 //	@ResponseBody

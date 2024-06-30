@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<ProductVO> type(ProductVO pvo) {
 		List <ProductVO> typeList = null;
-		typeList = pDAO.productList(pvo);
+		typeList = pDAO.type(pvo);
 		return typeList;
 	}
 
@@ -43,5 +43,21 @@ public class ProductServiceImpl implements ProductService{
 		result = pDAO.updateProduct(pvo);
 		return result;
 	}
+
+	@Override
+	public int productDelete(ProductVO pvo){
+		int result = 0;
+		result = pDAO.productDelete(pvo);
+		return result;
+	}
+
+
+
+
+
+
+	
+
+	
 
 }

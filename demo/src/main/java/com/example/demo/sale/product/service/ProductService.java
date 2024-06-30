@@ -12,5 +12,7 @@ public interface ProductService {
 	public List<ProductVO> type(ProductVO pvo);
 
 	public int updateProduct(ProductVO pvo);
+
+	public int productDelete(ProductVO pvo);
 	
 }
