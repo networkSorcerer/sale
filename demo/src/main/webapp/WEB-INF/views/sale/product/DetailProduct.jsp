@@ -38,7 +38,8 @@
 			</div>
 			<div class="form-group">
 				<label for="detailProductIn">상품 입고일</label>
-				<input type="text" class="form-control" id="detailProductIn" name="productIn" value="${detail.productIn}">
+				<input type="text" class="form-control" id="detailProductIn" name="productIn" value="${detail.productIn}" >
+				<input type="date">
 			</div>
 			<div class="form-group">
 				<label for="detailProductKg">상품 무게</label>

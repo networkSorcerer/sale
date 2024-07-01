@@ -41,8 +41,23 @@
         </div>
            <div class="form-group">
             <label for="productCount">창고</label>
-            <input type="text" class="form-control" id="productLocation" name="productLocation">
+            <select class="form-control" id="cargo" name="cargo">
+            	  <c:forEach var="cargo" items="${cargo}">
+                    <option value="${cargo.cargoId}">${cargo.cargoName} (${cargo.cargoId })</option>
+                </c:forEach>
+            </select>
+            
         </div>
+           <div class="form-group">
+            <label for="productCount">창고 포지션</label>
+            <select class="form-control" id="position" name="position">
+            	  <c:forEach var="position" items="${position}">
+                    <option value="${position.cargoPositionId}">${position.cargoPositionId} (수용 가능 : )</option>
+                </c:forEach>
+            </select>
+            
+        </div>
+        
         <button type="button" class="btn btn-success" id="productList">목록</button>
         <button type="button" class="btn btn-primary" id="saveProduct">저장</button>
         

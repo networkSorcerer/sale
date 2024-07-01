@@ -14,5 +14,9 @@ public interface ProductService {
 	public int updateProduct(ProductVO pvo);
 
 	public int productDelete(ProductVO pvo);
+
+	public List<ProductVO> cargo(ProductVO pvo);
+
+	public List<ProductVO> position(ProductVO pvo);
 	
 }

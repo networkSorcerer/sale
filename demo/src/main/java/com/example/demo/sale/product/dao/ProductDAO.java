@@ -16,4 +16,9 @@ public interface ProductDAO {
 	public int productDelete(ProductVO pvo);
 	public List<ProductVO> productInsert(ProductVO pvo);
 
+	public List<ProductVO> cargo(ProductVO pvo);
+	
+	public List<ProductVO> position(ProductVO pvo);
+
+
 }

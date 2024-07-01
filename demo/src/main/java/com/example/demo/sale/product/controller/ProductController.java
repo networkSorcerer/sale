@@ -50,12 +50,16 @@ public class ProductController {
 		   return "sale/product/DetailProduct";
 	   }
 	   
-	   
+	  
 	   
 	   @GetMapping("/productInsert")
 	   public String productInsert(@ModelAttribute ProductVO pvo, Model model) {
 		  List<ProductVO> type = productservice.type(pvo);
 		  model.addAttribute("type",type);
+		  List<ProductVO> cargo = productservice.cargo(pvo);
+		  model.addAttribute("cargo", cargo);
+		  List<ProductVO> position = productservice.position(pvo);
+		  model.addAttribute("position", position);
 		  
 		  return "sale/product/NewProduct";
 	   }

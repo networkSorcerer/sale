@@ -51,6 +51,20 @@ public class ProductServiceImpl implements ProductService{
 		return result;
 	}
 
+	@Override
+	public List<ProductVO> cargo(ProductVO pvo) {
+		List<ProductVO> cargoList = null;
+		cargoList = pDAO.cargo(pvo);
+		return cargoList;
+	}
+
+	@Override
+	public List<ProductVO> position(ProductVO pvo) {
+		List<ProductVO> cargoPosition = null;
+		cargoPosition = pDAO.position(pvo);
+		return cargoPosition;
+	}
+
 
 
 

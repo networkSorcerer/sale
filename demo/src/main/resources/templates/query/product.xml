@@ -10,6 +10,10 @@
         <result column="product_kg" property="productKg"/>
         <result column="product_location" property="productLocation"/>
         <result column="product_count" property="productCount"/>
+        <result column="cargo_id" property="cargoId"/>
+        <result column="cargo_name" property="cargoName"/>
+        <result column="cargo_position_id" property="cargoPositionId"/>
+        <result column="cargo_position_capacity" property="cargoPositionCapacity"/>
     </resultMap>
     
     <select id="productList" parameterType="product" resultMap="productMap">
@@ -27,6 +31,23 @@
     		product_type_name
     	FROM
     		product_type
+    </select>
+    
+    <select id="cargo" parameterType="product" resultMap="productMap">
+    	SELECT 
+    		cargo_id,
+    		cargo_name
+    	FROM 
+    		cargo
+    </select>
+    
+    <select id="position" parameterType="product" resultMap="productMap">
+    	SELECT
+    		cargo_position_id,
+    		cargo_position_capacity
+    	FROM
+    		cargo_position
+    	WHERE cargo_id = #{cargoId}
     </select>
     
     <select id="productDetail" parameterType="product" resultMap="productMap">

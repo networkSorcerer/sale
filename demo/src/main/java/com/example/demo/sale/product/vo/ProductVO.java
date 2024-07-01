@@ -18,5 +18,8 @@ public class ProductVO  {
 	private int productKg =0;
 	private String productLocation ="";
 	private int productCount =0;
-	
+	private int cargoId=0;
+	private String cargoName="";
+	private int cargoPositionId=0;
+	private int cargoPositionCapacity=0;
 }
