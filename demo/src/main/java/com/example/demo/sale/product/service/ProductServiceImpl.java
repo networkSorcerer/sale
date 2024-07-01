@@ -65,6 +65,14 @@ public class ProductServiceImpl implements ProductService{
 		return cargoPosition;
 	}
 
+	@Override
+	public int Create(ProductVO pvo) {
+		int result =0;
+		result =pDAO.Create(pvo);
+		return result;
+		
+	}
+
 
 
 

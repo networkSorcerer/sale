@@ -47,7 +47,6 @@
     		cargo_position_capacity
     	FROM
     		cargo_position
-    	WHERE cargo_id = #{cargoId}
     </select>
     
     <select id="productDetail" parameterType="product" resultMap="productMap">
@@ -85,28 +84,35 @@
     	DELETE FROM product WHERE product_id = #{productId}
     </delete>
     
-    <insert id ="productInsert" parameterType="product">
-    	<selectKey keyProperty="productId" resultType="int" order="BEFORE">
-    		select product_seq.nextval from dual
-    	</selectKey>
-    	INSERT INTO product ( 
-    		product_id,
-            product_name,
-            product_type_id,
-            product_type_name,
-            product_in,
-            product_kg,
-            product_location,
-            product_count)
-            VALUES (
-            #{productName},
-            #{productIn},
-            #{productKg},
-            #{productLocation},
-            #{productCount},
-            #{productId},
-            )
-    </insert>
+   <insert id="Create" parameterType="product">
+    <selectKey keyProperty="productId" resultType="int" order="BEFORE">
+        select product_seq.nextval from dual
+    </selectKey>
+    INSERT INTO product (
+    	product_type_name,
+    	product_id,
+        product_name,
+        product_type_id,
+        product_in,
+        product_kg,
+        product_location,
+        product_count,
+        cargo_id,
+        cargo_position_id  <!-- 여기서 쉼표 제거 -->
+    ) VALUES (
+        (SELECT product_type_name FROM product_type WHERE product_type_id = #{productTypeId}), <!-- product_type_name 조회 -->
+    	#{productId},
+        #{productName},
+        #{productTypeId},
+        SYSDATE,  <!-- 현재 날짜 삽입을 위해 SYSDATE 사용 -->
+        #{productKg},
+        #{productLocation},
+        #{productCount},
+        #{cargoId},
+        #{cargoPositionId}
+    )
+</insert>
+
     
 
 </mapper>

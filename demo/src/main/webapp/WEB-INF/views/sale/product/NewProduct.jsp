@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
-<%@ page trimDirectiveWhitespaces="true" %>     
+<%@ page trimDirectiveWhitespaces="true" %>    
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +40,10 @@
             <label for="productCount">상품 무게(kg)</label>
             <input type="text" class="form-control" id="productKg" name="productKg">
         </div>
+        <div class="form-group">
+            <label for="productLocation">상품 주소</label>
+            <input type="text" class="form-control" id="productLocation" name="productLocation">
+        </div>
            <div class="form-group">
             <label for="productCount">창고</label>
             <select class="form-control" id="cargo" name="cargo">
@@ -64,7 +69,7 @@
     </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"  crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="/resources/include/js/common.js"></script>
@@ -75,25 +80,29 @@ $(document).ready(function() {
     $('#saveProduct').click(function() {
         // Get new product values
         var productName = $('#productName').val();
-        var prouctTypeId =$('#productTypeId').val();
+        var productTypeId = $('#productType').val(); // Corrected variable name
         var productCount = $('#productCount').val();
-		var productKg= $('#productKg').val();
-		var productLocation = $('#productLocation').val();
+        var productKg = $('#productKg').val();
+        var cargoId = $('#cargo').val();
+        var cargoPositionId = $('#position').val();
+        var productLocation = $('#productLocation').val();
         // Implement AJAX call to save new product to the server
         $.ajax({
-            url: '/product/', // Update with your server endpoint
+            url: '/product/Create', // Update with your server endpoint
             type: 'POST',
             data: {
                 productName: productName,
                 productCount: productCount,
                 productTypeId: productTypeId,
                 productKg: productKg,
-                productLocation : productLocation
+                cargoId: cargoId,
+                cargoPositionId: cargoPositionId,
+                productLocation: productLocation,
             },
             success: function(response) {
                 // Handle success
                 alert('Product added successfully!');
-                window.location.href='/prouct/productList';// Reload the page to reflect changes
+                window.location.href = '/product/productList'; // Reload the page to reflect changes
             },
             error: function(error) {
                 // Handle error
@@ -101,10 +110,13 @@ $(document).ready(function() {
             }
         });
     });
-    $('#productList').click(function(){
-    	window.location.href='/product/productList';
-    })
+    
+    // Handle product list button click
+    $('#productList').click(function() {
+        window.location.href = '/product/productList';
+    });
 });
+
 </script>
 </body>
 </html>

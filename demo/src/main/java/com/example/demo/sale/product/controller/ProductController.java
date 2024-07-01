@@ -61,9 +61,15 @@ public class ProductController {
 		  List<ProductVO> position = productservice.position(pvo);
 		  model.addAttribute("position", position);
 		  
+		  
 		  return "sale/product/NewProduct";
 	   }
 	   
+	   @PostMapping("/Create")
+	   public String Create(ProductVO pvo) throws Exception {
+		   productservice.Create(pvo);
+		   return "redirect:/product/productList";
+	   }
 	   
 	   @PostMapping("/updateProduct")
 	   public String updateProduct(@ModelAttribute ProductVO pvo) throws Exception {

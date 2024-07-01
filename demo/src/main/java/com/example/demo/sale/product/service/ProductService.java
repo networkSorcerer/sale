@@ -18,5 +18,7 @@ public interface ProductService {
 	public List<ProductVO> cargo(ProductVO pvo);
 
 	public List<ProductVO> position(ProductVO pvo);
+
+	public int Create(ProductVO pvo);
 	
 }

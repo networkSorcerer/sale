@@ -20,5 +20,6 @@ public interface ProductDAO {
 	
 	public List<ProductVO> position(ProductVO pvo);
 
+	public int Create(ProductVO pvo);
 
 }
