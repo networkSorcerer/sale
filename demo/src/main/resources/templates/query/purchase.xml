@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.sale.purchase.dao.PurchaseDao">
+	<resultMap type="purchase" id="purchaseMap">
+		<result column="purchase_id" />
+		<result column="purchase_date"/>
+		<result column="product_kg" />
+		<result column="purchase_count"/>
+		<result column="product_id" />
+		<result column="product_type_id" />
+		<result column="product_type_name" />
+		<result column="product_name" />
+		
+	</resultMap>
+	
+<select id="purchaseList" resultType="purchase">
+	select 
+		purchase_id,
+		purchase_date,
+		product_kg,
+		purchase_count,
+		product_id,
+		product_type_id,
+		product_type_name,
+		product_name
+		from 
+		purchase
+</select>
+</mapper>

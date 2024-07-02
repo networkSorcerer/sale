@@ -101,6 +101,13 @@
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.spring</groupId>
+			<artifactId>JavaWeb</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	
+
 	</dependencies>
 
 	<build>
