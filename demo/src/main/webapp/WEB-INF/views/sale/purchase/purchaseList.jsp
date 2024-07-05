@@ -1,131 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
-<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
-<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
-<%@ page trimDirectiveWhitespaces="true" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Purchase List</title>
-<!-- Bootstrap CSS -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-	<div class="container mt-5">
-		<div class="card">
-			<div> 
-				
-			</div>
-			<div class="card-header">
-				<h2>Purchase List</h2>
-			</div>
-			<div class="card-body">
-				<table class="table table-bordered table-striped">
-					<thead class="thead-dark">
-						<tr>
-							<th>구입 ID</th>
-							<th>상품 명</th>
-							<th>상품 타입</th>
-							<th>구매일</th>
-							<th>상품 무게</th>
-							<th>상품 수량</th>
-						</tr>
-					</thead>
-					<tbody id="purchaseList">
-						<c:forEach var="purchase" items="${purchaseList}">
-							<tr>
-								<td>${purchase.purchase_id}</td>
-								<td>${purchase.product_name}</td>
-								<td>${purchase.product_type_name}</td>
-								<td><fmt:formatDate value="${purchase.purchase_date}" pattern="yyyy-MM-dd"/></td>
-								<td>${purchase.product_kg}</td>
-								<td>${purchase.purchase_count}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-	
-<!-- Bootstrap JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="/resources/include/js/common.js"></script>
-<script>
-    $(function() {
-    	purchaseSearch();
-        registerBtnEvent();
-        filePreview();
-    });
-
-    function registerBtnEvent() {
-        $("#searchBtn").click(function(e) {
-            e.preventDefault();
-            noticeSearch();
-        });
-
-        $("a[name=btn]").click(function(e) {
-            e.preventDefault();
-            var btnId = $(this).attr("id");
-
-            switch(btnId) {
-                case "btnSaveNotice":
-                    saveNotice();
-                    break;
-                case "btnUpdateNotice":
-                    updateNotice();
-                    break;
-                case "btnDeleteNotice":
-                    deleteNotice();
-                    break;
-                case "btnClose":
-                    break;
-                case "btnSavefile":
-                    saveFileNotice();
-                    break;
-                case "btnUpdatefile":
-                    updateFileNotice();
-                    break;
-                case "btnDeletefile":
-                    deleteFileNotice();
-                    break;
-            }
-        });
-    }
-
-    function purchaseSearch(cpage) {
-        cpage = cpage || 1;
-
-        var param = {
-            searchTitle: $("#searchTitle").val(),
-            searchStDate: $("#searchStDate").val(),
-            searchEdDate: $("#searchEdDate").val(),
-            currentPage: cpage,
-            pageSize: pageSize
-        };
-
-        var callBackFunction = function(response) {
-            $("#noticeList").empty().append(response);
-
-            var pagieNavigateHtml = getPaginationHtml(cpage, $("#totcnt").val(), pageSize, pageBlockPage, "noticeSearch");
-            $("#pagingNavi").empty().append(pagieNavigateHtml);
-            $("#currentPage").val(cpage);
-        };
-
-        $.ajax({
-            url: "/purchase/purchaseList",
-            type: "post",
-            dataType: "text",
-            async: false,
-            data: param,
-            success: callBackFunction
-        });
-    }
-</script>
-
-</body>
-</html>
+    pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+   			
+		<!-- 갯수가 0인 경우  -->
+		<c:if test="${purchaseCnt eq 0 }">
+			<tr>
+				<td colspan="4">데이터가 존재하지 않습니다.</td>
+			</tr>
+		</c:if>
+		
+   
+   <c:if test="${purchaseCnt > 0}">
+       <c:set var="nRow" value="${pageSize * (currentPage - 1)}" />
+       <c:forEach items="${purchaseList}" var="list">
+           <tr>
+               <td>${list.purchase_id}</td>
+               <td  ><a href="javascript:purchaseDetailModal(${list.purchase_id});">${list.product_name}</a></td>
+               <td>${list.purchase_count}</td>
+               <td>${list.purchase_date}</td>
+           </tr>
+           <c:set var="nRow" value="${nRow + 1}" /> 
+       </c:forEach>
+   </c:if>
+   	<!-- class="btn_open" -->
+      <input type="hidden" id="totcnt" name="totcnt" value="${noticeCnt}"/>

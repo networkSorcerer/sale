@@ -9,8 +9,9 @@ import com.example.demo.sale.purchase.vo.PurchaseVO;
 @Mapper
 public interface PurchaseDao {
 
-	List<PurchaseVO> purchaseList(Map<String, Object> paramMap) throws Exception;
+	public List<PurchaseVO> purchaseList(Map<String, Object> paramMap) throws Exception;
 
-	int purchaseCnt(Map<String, Object> paramMap);
+	public int purchaseCnt(Map<String, Object> paramMap);
+	public PurchaseVO purchaseDetail(Map<String, Object> paramMap);
 
 }

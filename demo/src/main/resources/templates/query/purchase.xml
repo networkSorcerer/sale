@@ -26,4 +26,23 @@
 		from 
 		purchase
 </select>
+
+<select id="purchaseCnt" resultType="int">
+	SELECT COUNT(*)
+	FROM purchase
+</select>
+
+<select id="purchaseDetail" resultType="int">
+	select
+		purchase_id,
+	 	purchase_date,
+	 	product_kg,
+	 	purchase_count,
+	 	product_id,
+	 	product_name,
+	 	product_type_id,
+	 	product_type_name
+	from
+	purchase
+</select>
 </mapper>

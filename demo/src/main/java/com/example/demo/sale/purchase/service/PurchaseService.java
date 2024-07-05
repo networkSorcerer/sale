@@ -11,4 +11,6 @@ public interface PurchaseService {
 
 	int purchaseCnt(Map<String, Object> paramMap);
 
+	PurchaseVO purchaseDetail(Map<String, Object> paramMap);
+
 }

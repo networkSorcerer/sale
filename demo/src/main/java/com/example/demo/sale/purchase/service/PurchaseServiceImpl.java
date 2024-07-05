@@ -26,4 +26,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return pdao.purchaseCnt(paramMap);
 	}
 
+	@Override
+	public PurchaseVO purchaseDetail(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return pdao.purchaseDetail(paramMap);
+	}
+
 }
