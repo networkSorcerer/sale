@@ -56,35 +56,76 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="/resources/include/js/common.js"></script>
 <script>
-	$(function(){
-		purchaseSearch();
-		registerBtnEvent();
-		filePreview();
-	})
-	
-	function registerBtnEvent(){
-		$("#searchBtn").click(function(e){
-			e.preventDefault();
-			noticeSearch();
-		});
-		
-		$("a[name=btn]").click(function(e){
-			e.preventDefault();
-			var btnId = $(this).attr("id");
-			
-			switch(btnId) {
-			case "btnSaveNotice":
-				saveNotice();
-				break;
-			case "btnUpdateNotice":
-				updateNotice();
-				break;
-			
-			}
-		})
-		
-	}
+    $(function() {
+    	purchaseSearch();
+        registerBtnEvent();
+        filePreview();
+    });
 
+    function registerBtnEvent() {
+        $("#searchBtn").click(function(e) {
+            e.preventDefault();
+            noticeSearch();
+        });
+
+        $("a[name=btn]").click(function(e) {
+            e.preventDefault();
+            var btnId = $(this).attr("id");
+
+            switch(btnId) {
+                case "btnSaveNotice":
+                    saveNotice();
+                    break;
+                case "btnUpdateNotice":
+                    updateNotice();
+                    break;
+                case "btnDeleteNotice":
+                    deleteNotice();
+                    break;
+                case "btnClose":
+                    break;
+                case "btnSavefile":
+                    saveFileNotice();
+                    break;
+                case "btnUpdatefile":
+                    updateFileNotice();
+                    break;
+                case "btnDeletefile":
+                    deleteFileNotice();
+                    break;
+            }
+        });
+    }
+
+    function purchaseSearch(cpage) {
+        cpage = cpage || 1;
+
+        var param = {
+            searchTitle: $("#searchTitle").val(),
+            searchStDate: $("#searchStDate").val(),
+            searchEdDate: $("#searchEdDate").val(),
+            currentPage: cpage,
+            pageSize: pageSize
+        };
+
+        var callBackFunction = function(response) {
+            $("#noticeList").empty().append(response);
+
+            var pagieNavigateHtml = getPaginationHtml(cpage, $("#totcnt").val(), pageSize, pageBlockPage, "noticeSearch");
+            $("#pagingNavi").empty().append(pagieNavigateHtml);
+            $("#currentPage").val(cpage);
+        };
+
+        $.ajax({
+            url: "/purchase/purchaseList",
+            type: "post",
+            dataType: "text",
+            async: false,
+            data: param,
+            success: callBackFunction
+        });
+    }
 </script>
+
 </body>
 </html>
