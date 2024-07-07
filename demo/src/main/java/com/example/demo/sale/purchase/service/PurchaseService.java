@@ -7,10 +7,16 @@ import com.example.demo.sale.purchase.vo.PurchaseVO;
 
 public interface PurchaseService {
 
-	List<PurchaseVO> purchaseList(Map<String, Object> paramMap) throws Exception;
+	public List<PurchaseVO> purchaseList(Map<String, Object> paramMap) throws Exception;
 
-	int purchaseCnt(Map<String, Object> paramMap);
+	public int purchaseCnt(Map<String, Object> paramMap) throws Exception;
 
-	PurchaseVO purchaseDetail(Map<String, Object> paramMap);
+	public PurchaseVO purchaseDetail(Map<String, Object> paramMap) throws Exception;
+
+	public int purchaseSave(Map<String, Object> paramMap) throws Exception;
+
+	public int purchaseUpdate(Map<String, Object> paramMap) throws Exception;
+
+	public int deletePurchase(Map<String, Object> paramMap);
 
 }

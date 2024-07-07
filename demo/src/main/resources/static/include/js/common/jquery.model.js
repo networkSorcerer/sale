@@ -163,3 +163,24 @@ function gfCloseModal() {
 	$('.layerPop').hide();
 	$('#wrap_pop .scroll').scrollTop(0);
 }
+
+function gfModalPop(modalId) {
+    // 모달 창을 화면 가운데로 위치시키기 위해 top, left 값을 계산
+    var modal = $(modalId);
+    var modalWidth = modal.outerWidth();
+    var modalHeight = modal.outerHeight();
+    var winWidth = $(window).width();
+    var winHeight = $(window).height();
+
+    var top = Math.max(0, (winHeight - modalHeight) / 2 + $(window).scrollTop()) + "px";
+    var left = Math.max(0, (winWidth - modalWidth) / 2 + $(window).scrollLeft()) + "px";
+
+    modal.css({
+        "top": top,
+        "left": left
+    });
+
+    // 모달 창 열기
+    modal.show();
+}
+

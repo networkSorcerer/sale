@@ -16,7 +16,7 @@
 <select id="purchaseList" resultType="purchase">
 	select 
 		purchase_id,
-		purchase_date,
+		TO_CHAR(purchase_date, 'YYYY-MM-DD') AS purchase_date,
 		product_kg,
 		purchase_count,
 		product_id,
@@ -32,17 +32,59 @@
 	FROM purchase
 </select>
 
-<select id="purchaseDetail" resultType="int">
-	select
-		purchase_id,
-	 	purchase_date,
-	 	product_kg,
-	 	purchase_count,
-	 	product_id,
-	 	product_name,
-	 	product_type_id,
-	 	product_type_name
-	from
-	purchase
+<select id="purchaseDetail" resultType="com.example.demo.sale.purchase.vo.PurchaseVO">
+    SELECT
+        purchase_id,
+        TO_CHAR(purchase_date, 'YYYY-MM-DD') AS purchase_date,
+        product_kg,
+        purchase_count,
+        product_id,
+        product_name,
+        product_type_id,
+        product_type_name
+    FROM
+        purchase
+    WHERE
+        purchase_id = #{purchase_id}
 </select>
+
+<insert id="purchaseSave">
+    <selectKey resultType="int" keyProperty="purchase_id" order="BEFORE">
+        SELECT PURCHASE_SEQ.NEXTVAL FROM DUAL
+    </selectKey>
+    insert into purchase
+    (
+        purchase_id,
+        purchase_date,
+        product_kg,
+        purchase_count,
+        product_name
+    )
+    values (
+        PURCHASE_SEQ.CURRVAL, -- PURCHASE_ID에 대한 시퀀스 값 사용
+        TO_DATE(#{purchase_date}, 'YYYY-MM-DD'),
+        #{product_kg},
+        #{purchase_count},
+        #{product_name}
+    )
+</insert>
+
+<update id="purchaseUpdate">
+	update purchase
+	set
+		purchase_date = TO_DATE(#{purchase_date}, 'YYYY-MM-DD'),
+		product_kg = #{product_kg},
+		purchase_count = #{purchase_count},
+		product_name = #{product_name}
+	where 
+		purchase_id = #{purchase_id}
+</update>
+
+<delete id="deletePurchase">
+	delete from purchase
+	where purchase_id = #{purchase_id}
+</delete>
+
+
+
 </mapper>

@@ -12,6 +12,9 @@ public interface PurchaseDao {
 	public List<PurchaseVO> purchaseList(Map<String, Object> paramMap) throws Exception;
 
 	public int purchaseCnt(Map<String, Object> paramMap);
-	public PurchaseVO purchaseDetail(Map<String, Object> paramMap);
+	public PurchaseVO purchaseDetail(Map<String, Object> paramMap) throws Exception;
+	public 	int purchaseSave(Map<String, Object> paramMap) throws Exception;
+	public int purchaseUpdate(Map<String, Object> paramMap)throws Exception;
+	public int deletePurchase(Map<String, Object> paramMap);
 
 }

@@ -22,14 +22,31 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
-	public int purchaseCnt(Map<String, Object> paramMap) {
+	public int purchaseCnt(Map<String, Object> paramMap)throws Exception {
 		return pdao.purchaseCnt(paramMap);
 	}
 
 	@Override
-	public PurchaseVO purchaseDetail(Map<String, Object> paramMap) {
+	public PurchaseVO purchaseDetail(Map<String, Object> paramMap) throws Exception {
 		// TODO Auto-generated method stub
 		return pdao.purchaseDetail(paramMap);
+	}
+
+	@Override
+	public int purchaseSave(Map<String, Object> paramMap) throws Exception {
+		// TODO Auto-generated method stub
+		return pdao.purchaseSave(paramMap);
+	}
+
+	@Override
+	public int purchaseUpdate(Map<String, Object> paramMap) throws Exception {
+		return pdao.purchaseUpdate(paramMap);
+	}
+
+	@Override
+	public int deletePurchase(Map<String, Object> paramMap) {
+		// TODO Auto-generated method stub
+		return pdao.deletePurchase(paramMap);
 	}
 
 }
