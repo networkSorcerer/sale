@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.common.vo.PageDTO;
 import com.example.demo.sale.product.controller.ProductController;
 import com.example.demo.sale.product.service.ProductService;
 import com.example.demo.sale.product.vo.ProductVO;
@@ -41,7 +42,7 @@ public class PurchaseController {
     }
 
     @RequestMapping("/purchaseList")
-    public String getPurchaseList(Model model, @RequestParam(defaultValue = "1") int currentPage,
+    public String getPurchaseList(@ModelAttribute PurchaseVO pvo,Model model, @RequestParam(defaultValue = "1") int currentPage,
             @RequestParam(defaultValue = "10") int pageSize, @RequestParam Map<String, Object> paramMap,
             HttpServletRequest request, HttpServletResponse response) throws Exception {
         int startSeq = (currentPage - 1) * pageSize;

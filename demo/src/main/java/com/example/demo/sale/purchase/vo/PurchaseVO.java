@@ -6,12 +6,14 @@ package com.example.demo.sale.purchase.vo;
 
 import java.time.LocalDate;
 
+import com.example.demo.common.vo.CommonVO;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class PurchaseVO {
+public class PurchaseVO extends CommonVO {
 	private int purchase_id = 0;
 	private LocalDate purchase_date;
 	private int product_kg = 0;

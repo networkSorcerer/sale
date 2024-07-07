@@ -23,4 +23,4 @@
        </c:forEach>
    </c:if>
    	<!-- class="btn_open" -->
-      <input type="hidden" id="totcnt" name="totcnt" value="${noticeCnt}"/>
+      <input type="hidden" id="totcnt" name="totcnt" value="${purchaseCnt}"/>
