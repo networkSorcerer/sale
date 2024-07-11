@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.sale.purchase.dao.PurchaseDao;
 import com.example.demo.sale.purchase.vo.PurchaseVO;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Setter;
 
 @Service
@@ -47,6 +48,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public int deletePurchase(Map<String, Object> paramMap) {
 		// TODO Auto-generated method stub
 		return pdao.deletePurchase(paramMap);
+	}
+
+	@Override
+	public int purchaseSaveFile(Map<String, Object> paramMap, HttpServletRequest request) throws Exception{
+		// TODO Auto-generated method stub
+		return pdao.purchaseCnt(paramMap);
 	}
 
 }

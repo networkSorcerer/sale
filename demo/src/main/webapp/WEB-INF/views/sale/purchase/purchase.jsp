@@ -86,7 +86,7 @@
 		<div class="popup_cont">
 			<dl>
 				<dt>
-					<strong>구매 내역</strong>
+					<strong>구매 내역 등록</strong>
 				</dt>
 				
 				<dd class="content">
@@ -132,15 +132,11 @@
 		<div id="filePopUp" class="layerPop layerType2" style="width: 600px">
 			<dl>
 				<dt>
-					<strong>구매 내역</strong>
+					<strong>구매 내역 등록</strong>
 				</dt>
 				<dd class="content">
 					<table>
 						<tbody>
-							<tr>
-								<th>구매ID</th>
-								<td><input type="text"></td>
-							</tr>
 							<tr>
 								<th>상품이름</th>
 								<td><input type="text"></td>
@@ -155,7 +151,7 @@
 							</tr>
 							<tr>
 								<th>구매일</th>
-								<td><input type="text"></td>
+								<td><input type="date"></td>
 							</tr>
 							<tr>
 								<th>파일</th>
@@ -173,10 +169,10 @@
 
 					</table>
 					<div class="btn_areaC mt30">
-						<a href="" class="btnType blue" id="btnSavePurchase" name="btn"><span>저장</span></a>
-						<a href="" class="btnType blue" id="btnUpdatePurchase" name="btn"
+						<a href="" class="btnType blue" id="btnSavePurchaseFile" name="btn"><span>저장</span></a>
+						<a href="" class="btnType blue" id="btnUpdatePurchaseFile" name="btn"
 							style="display: none"><span>수정</span></a> <a href=""
-							class="btnType blue" id="btnDeletePurchase" name="btn"><span>삭제</span></a>
+							class="btnType blue" id="btnDeletePurchaseFile" name="btn"><span>삭제</span></a>
 						<a href="" class="btnType gray" id="btnClose" name="btn"><span>취소</span></a>
 					</div>
 				</dd>
@@ -447,28 +443,28 @@ function insertFileModal() {
 }
 
 function filePreview() {
-	$("#fileInput").change(function(e){
-		e.preventDefault();
-		
-		if($(this)[0].files[0]){
-			var fileInfo = $("#fileInput").val();
-			var fileInfo = fileInfo.split(".");
-			var fileLowerCase = fileInfoSplit[1].toLowerCase();
-			
-			var imgPath="";
-			var previewHtml="";
-			
-			if(fileLowerCase == "jpg" || fielLowerCase == "gif" || fileLowerCase == "png"){
-				imgPath = window.URL.createObjectURL($(this)[0].files[0]);
-				previewHtml = "<img src='" + imgPath + "' id='imgFile' style='width: 100px; height: 100px;' />";	
-			} else {
-				previewHtml="";
-			}
-			$("#preview").empty().append(previewHtml)
-		}
-	});
-	
+    $("#fileInput").change(function(e){
+        e.preventDefault();
+        
+        if($(this)[0].files[0]){
+            var fileInfo = $("#fileInput").val();
+            var fileInfoSplit = fileInfo.split(".");  // 수정: fileInfoSplit 변수명 수정
+            var fileLowerCase = fileInfoSplit[1].toLowerCase();  // 수정: fileInfoSplit 변수명 수정
+            
+            var imgPath="";
+            var previewHtml="";
+            
+            if(fileLowerCase == "jpg" || fileLowerCase == "gif" || fileLowerCase == "png"){  // 수정: fielLowerCase -> fileLowerCase
+                imgPath = window.URL.createObjectURL($(this)[0].files[0]);
+                previewHtml = "<img src='" + imgPath + "' id='imgFile' style='width: 100px; height: 100px;' />";   
+            } else {
+                previewHtml="";
+            }
+            $("#preview").empty().append(previewHtml);  // 수정: previewHtml 뒤에 세미콜론 추가
+        }
+    });
 }
+
 
 function fValidatefile() {
 	var chk = checkNotEmpty(
@@ -518,6 +514,36 @@ function purchaseDetailFileModal(purchase_id){
 	callAjax("/purchase/purchaseDetail.do", "post", "json", false, param, callBackFunction);
 }
 
+function detailModalSetting(detail){
+    if(detail != null) {
+        $("#product_name").val(detail.product_name);
+        $("#product_kg").val(detail.product_kg);
+        $("#purchase_count").val(detail.purchase_count);
+        $("#purchase_date").val(detail.purchase_date);
+        
+        if(detail.file_name != null) {
+            var ext = detail.file_ext.toLowerCase();
+            var imagePath="";
+            var previewHtml = "";
+            
+            console.log(ext);
+            if(ext == "jpg" || ext == "gif" || ext == "png"){
+                imagePath = detail.logical_path;
+                
+                previewHtml = "<a href='javascript:download()'>";
+                previewHtml += "<img src='" + imagePath + "' id='imgFile' style='width: 100px; height: 100px;' />";   
+                previewHtml += "</a>";
+            } else {
+                previewHtml = "<a href='javascript:download()'>";
+                previewHtml += detail.file_name;
+                previewHtml += "</a>";
+            }
+            
+            $("#preview").empty().append(previewHtml);
+            $("#fileInput").val("");   
+        }
+    }
+}
 
 
 	</script>

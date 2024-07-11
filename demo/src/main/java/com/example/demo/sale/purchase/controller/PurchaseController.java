@@ -97,4 +97,23 @@ public class PurchaseController {
         resultMap.put("result", returnMsg);
         return resultMap;
     }
+    
+    @RequestMapping("purchseSaveFile.do")
+    @ResponseBody
+    public Map<String, Object> purchaseSaveFile(@RequestParam Map<String, Object> paramMap, HttpServletRequest request,
+	         HttpServletResponse response, HttpSession session) throws Exception {
+    	Map<String , Object> resultMap = new HashMap<String, Object>();
+    	
+    	int result = 0;
+    	String returnMsg="";
+    	
+    	result = purchaseService.purchaseSaveFile(paramMap, request);
+    	if(result > 0) {
+    		returnMsg = "success";
+    	} else {
+    		returnMsg= "fail";
+    	}
+    	
+    	return resultMap;
+    }
 }
